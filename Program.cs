@@ -6,11 +6,10 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TodoList { get; set; }
+        public static List<string> TodoList { get; set; } = new List<string>();
 
         static void Main(string[] args)
         {
-            TodoList = new List<string>();
             Menu[] validOptions = [Menu.Add, Menu.Remove, Menu.List, Menu.Exit];
             Menu menuOption;
             do
@@ -121,12 +120,7 @@ namespace ToDo
 
         public static bool ShowTodoList()
         {
-            if (TodoList == null || TodoList.Count == 0)
-            {
-                Console.WriteLine("No pending tasks");
-                return false;
-            }
-            else
+            if (TodoList?.Count > 0)
             {
                 Console.WriteLine("Your pending tasks:");
 
@@ -136,6 +130,11 @@ namespace ToDo
                     Console.WriteLine($"{taskIndex++}. {task}");
                 });
                 return true;
+            }
+            else
+            {
+                Console.WriteLine("No pending tasks");
+                return false;
             }
         }
 
