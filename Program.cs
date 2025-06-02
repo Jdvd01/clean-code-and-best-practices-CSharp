@@ -1,26 +1,15 @@
 ﻿List<string> TodoList = new List<string>();
-
 Menu[] validOptions = [Menu.Add, Menu.Remove, Menu.List, Menu.Exit];
 Menu menuOption;
+
 do
 {
     menuOption = (Menu)ShowMainMenu();
-    if (menuOption == Menu.Add)
-    {
-        ShowMenuAdd();
-    }
-    else if (menuOption == Menu.Remove)
-    {
-        ShowMenuRemove();
-    }
-    else if (menuOption == Menu.List)
-    {
-        ShowMenuTodoList();
-    }
-    else if (!validOptions.Contains(menuOption))
-    {
-        Console.WriteLine("Invalid option, try again");
-    }
+    if (menuOption == Menu.Add) ShowMenuAdd();
+    else if (menuOption == Menu.Remove) ShowMenuRemove();
+    else if (menuOption == Menu.List) ShowMenuTodoList();
+    else if (!validOptions.Contains(menuOption)) Console.WriteLine("Invalid option, try again");
+
 } while (menuOption != Menu.Exit);
 
 int ShowMainMenu()
@@ -33,7 +22,6 @@ int ShowMainMenu()
     Console.WriteLine("4. Exit");
     Console.WriteLine("----------------------------------------");
 
-    // Read line
     string option = Console.ReadLine();
     Console.WriteLine("----------------------------------------");
     int defaultOption = 0;
@@ -49,13 +37,13 @@ void ShowMenuRemove()
     try
     {
         Console.WriteLine("Enter the number of the task to be removed: ");
-        // Show current taks
+
         bool isPending = ShowTodoList();
         if (!isPending) return;
-        Console.WriteLine("----------------------------------------");
 
+        Console.WriteLine("----------------------------------------");
         string taskToBeRemoved = Console.ReadLine();
-        // Remove one position
+
         int indexToRemove = Convert.ToInt32(taskToBeRemoved) - 1;
 
         if (indexToRemove <= (TodoList.Count - 1) && indexToRemove > -1 && TodoList.Count > 0)
@@ -65,10 +53,7 @@ void ShowMenuRemove()
             Console.WriteLine("----------------------------------------");
             Console.WriteLine($"Task {task} removed");
         }
-        else
-        {
-            Console.WriteLine("Task not found");
-        }
+        else Console.WriteLine("Task not found");
     }
     catch (Exception)
     {
@@ -90,11 +75,7 @@ void ShowMenuAdd()
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Task registered");
         }
-        else
-        {
-            Console.WriteLine("Please enter a valid task");
-        }
-
+        else Console.WriteLine("Please enter a valid task");
     }
     catch (Exception)
     {
@@ -116,10 +97,7 @@ bool ShowTodoList()
         Console.WriteLine("Your pending tasks:");
 
         int taskIndex = 1;
-        TodoList.ForEach(task =>
-        {
-            Console.WriteLine($"{taskIndex++}. {task}");
-        });
+        TodoList.ForEach(task => Console.WriteLine($"{taskIndex++}. {task}"));
         return true;
     }
     else
