@@ -67,16 +67,15 @@ namespace ToDo
                 string taskToBeRemoved = Console.ReadLine();
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(taskToBeRemoved) - 1;
-                if (indexToRemove > -1)
+
+                if (indexToRemove > -1 && TodoList.Count > 0)
                 {
-                    if (TodoList.Count > 0)
-                    {
-                        string task = TodoList[indexToRemove];
-                        TodoList.RemoveAt(indexToRemove);
-                        Console.WriteLine("----------------------------------------");
-                        Console.WriteLine("Task " + task + " removed");
-                    }
+                    string task = TodoList[indexToRemove];
+                    TodoList.RemoveAt(indexToRemove);
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine($"Task {task} removed");
                 }
+
             }
             catch (Exception)
             {
@@ -113,10 +112,12 @@ namespace ToDo
             else
             {
                 Console.WriteLine("Your pending tasks:");
-                for (int index = 0; index < TodoList.Count; index++)
+
+                int taskIndex = 1;
+                TodoList.ForEach(task =>
                 {
-                    Console.WriteLine((index + 1) + ". " + TodoList[index]);
-                }
+                    Console.WriteLine($"{taskIndex++}. {task}");
+                });
                 return true;
             }
         }
