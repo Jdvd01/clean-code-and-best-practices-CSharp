@@ -11,7 +11,7 @@ namespace ToDo
         static void Main(string[] args)
         {
             TodoList = new List<string>();
-            int[] validOptions = { 1, 2, 3, 4 };
+            int[] validOptions = [1, 2, 3, 4];
             int menuOption;
             do
             {
