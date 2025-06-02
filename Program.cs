@@ -1,32 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TL { get; set; }
+        public static List<string> TodoList { get; set; }
 
         static void Main(string[] args)
         {
-            TL = new List<string>();
-            int variable = 0;
+            TodoList = new List<string>();
+            int[] validOptions = { 1, 2, 3, 4 };
+            int menuOption;
             do
             {
-                variable = ShowMainMenu();
-                if (variable == 1)
+                menuOption = ShowMainMenu();
+                if (menuOption == 1)
                 {
                     ShowMenuAdd();
                 }
-                else if (variable == 2)
+                else if (menuOption == 2)
                 {
-                    ShowMenuDos();
+                    ShowMenuRemove();
                 }
-                else if (variable == 3)
+                else if (menuOption == 3)
                 {
-                    ShowMenuTres();
+                    ShowMenuTodoList();
                 }
-            } while (variable != 4);
+                else if (!validOptions.Contains(menuOption))
+                {
+                    Console.WriteLine("Invalid option, try again");
+                }
+            } while (menuOption != 4);
         }
         /// <summary>
         /// Show the main menu 
@@ -35,39 +41,42 @@ namespace ToDo
         public static int ShowMainMenu()
         {
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("Ingrese la opción a realizar: ");
-            Console.WriteLine("1. Nueva tarea");
-            Console.WriteLine("2. Remover tarea");
-            Console.WriteLine("3. Tareas pendientes");
-            Console.WriteLine("4. Salir");
+            Console.WriteLine("Enter the option to be made: ");
+            Console.WriteLine("1. New task");
+            Console.WriteLine("2. Remove task");
+            Console.WriteLine("3. Show pending tasks");
+            Console.WriteLine("4. Exit");
+            Console.WriteLine("----------------------------------------");
 
             // Read line
-            string line = Console.ReadLine();
-            return Convert.ToInt32(line);
+            string option = Console.ReadLine();
+            Console.WriteLine("----------------------------------------");
+            return Convert.ToInt32(option);
         }
 
-        public static void ShowMenuDos()
+        public static void ShowMenuRemove()
         {
             try
             {
-                Console.WriteLine("Ingrese el número de la tarea a remover: ");
+                Console.WriteLine("Enter the number of the task to be removed: ");
                 // Show current taks
-                for (int i = 0; i < TL.Count; i++)
+                for (int index = 0; index < TodoList.Count; index++)
                 {
-                    Console.WriteLine((i + 1) + ". " + TL[i]);
+                    Console.WriteLine((index + 1) + ". " + TodoList[index]);
                 }
                 Console.WriteLine("----------------------------------------");
 
-                string line = Console.ReadLine();
+                string taskToBeRemoved = Console.ReadLine();
                 // Remove one position
-                int indexToRemove = Convert.ToInt32(line) - 1;
+                int indexToRemove = Convert.ToInt32(taskToBeRemoved) - 1;
                 if (indexToRemove > -1)
                 {
-                    if (TL.Count > 0)
+                    if (TodoList.Count > 0)
                     {
-                        string task = TL[indexToRemove];
-                        TL.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                        string task = TodoList[indexToRemove];
+                        TodoList.RemoveAt(indexToRemove);
+                        Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("Task " + task + " removed");
                     }
                 }
             }
@@ -80,30 +89,31 @@ namespace ToDo
         {
             try
             {
-                Console.WriteLine("Ingrese el nombre de la tarea: ");
+                Console.WriteLine("Enter a new task: ");
                 string task = Console.ReadLine();
-                TL.Add(task);
-                Console.WriteLine("Tarea registrada");
+                TodoList.Add(task);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("Task registered");
             }
             catch (Exception)
             {
             }
         }
 
-        public static void ShowMenuTres()
+        public static void ShowMenuTodoList()
         {
-            if (TL == null || TL.Count == 0)
+            if (TodoList == null || TodoList.Count == 0)
             {
-                Console.WriteLine("No hay tareas por realizar");
-            } 
+                Console.WriteLine("No pending tasks");
+            }
             else
             {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i < TL.Count; i++)
+                Console.WriteLine("Your pending tasks:");
+                for (int index = 0; index < TodoList.Count; index++)
                 {
-                    Console.WriteLine((i + 1) + ". " + TL[i]);
+                    Console.WriteLine((index + 1) + ". " + TodoList[index]);
                 }
-                Console.WriteLine("----------------------------------------");
+                // Console.WriteLine("----------------------------------------");
             }
         }
     }
