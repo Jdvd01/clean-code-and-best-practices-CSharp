@@ -60,10 +60,8 @@ namespace ToDo
             {
                 Console.WriteLine("Enter the number of the task to be removed: ");
                 // Show current taks
-                for (int index = 0; index < TodoList.Count; index++)
-                {
-                    Console.WriteLine((index + 1) + ". " + TodoList[index]);
-                }
+                bool isPending = ShowTodoList();
+                if (!isPending) return;
                 Console.WriteLine("----------------------------------------");
 
                 string taskToBeRemoved = Console.ReadLine();
@@ -102,9 +100,15 @@ namespace ToDo
 
         public static void ShowMenuTodoList()
         {
+            ShowTodoList();
+        }
+
+        public static bool ShowTodoList()
+        {
             if (TodoList == null || TodoList.Count == 0)
             {
                 Console.WriteLine("No pending tasks");
+                return false;
             }
             else
             {
@@ -113,7 +117,7 @@ namespace ToDo
                 {
                     Console.WriteLine((index + 1) + ". " + TodoList[index]);
                 }
-                // Console.WriteLine("----------------------------------------");
+                return true;
             }
         }
 
