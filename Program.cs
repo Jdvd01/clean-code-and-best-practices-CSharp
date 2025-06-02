@@ -11,20 +11,20 @@ namespace ToDo
         static void Main(string[] args)
         {
             TodoList = new List<string>();
-            int[] validOptions = [1, 2, 3, 4];
-            int menuOption;
+            Menu[] validOptions = [Menu.Add, Menu.Remove, Menu.List, Menu.Exit];
+            Menu menuOption;
             do
             {
-                menuOption = ShowMainMenu();
-                if (menuOption == 1)
+                menuOption = (Menu)ShowMainMenu();
+                if (menuOption == Menu.Add)
                 {
                     ShowMenuAdd();
                 }
-                else if (menuOption == 2)
+                else if (menuOption == Menu.Remove)
                 {
                     ShowMenuRemove();
                 }
-                else if (menuOption == 3)
+                else if (menuOption == Menu.List)
                 {
                     ShowMenuTodoList();
                 }
@@ -32,7 +32,7 @@ namespace ToDo
                 {
                     Console.WriteLine("Invalid option, try again");
                 }
-            } while (menuOption != 4);
+            } while (menuOption != Menu.Exit);
         }
         /// <summary>
         /// Show the main menu 
@@ -115,6 +115,14 @@ namespace ToDo
                 }
                 // Console.WriteLine("----------------------------------------");
             }
+        }
+
+        public enum Menu
+        {
+            Add = 1,
+            Remove = 2,
+            List = 3,
+            Exit = 4
         }
     }
 }
