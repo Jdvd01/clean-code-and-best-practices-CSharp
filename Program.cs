@@ -68,17 +68,22 @@ namespace ToDo
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(taskToBeRemoved) - 1;
 
-                if (indexToRemove > -1 && TodoList.Count > 0)
+                if (indexToRemove <= (TodoList.Count - 1) && indexToRemove > -1 && TodoList.Count > 0)
                 {
                     string task = TodoList[indexToRemove];
                     TodoList.RemoveAt(indexToRemove);
                     Console.WriteLine("----------------------------------------");
                     Console.WriteLine($"Task {task} removed");
                 }
-
+                else
+                {
+                    Console.WriteLine("Task not found");
+                }
             }
             catch (Exception)
             {
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("Something went wrong, try again");
             }
         }
 
@@ -88,13 +93,25 @@ namespace ToDo
             {
                 Console.WriteLine("Enter a new task: ");
                 string task = Console.ReadLine();
-                TodoList.Add(task);
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine("Task registered");
+
+                if (!string.IsNullOrEmpty(task))
+                {
+                    TodoList.Add(task);
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine("Task registered");
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid task");
+                }
+
             }
             catch (Exception)
             {
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("Something went wrong, try again");
             }
+
         }
 
         public static void ShowMenuTodoList()
