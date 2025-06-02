@@ -36,7 +36,12 @@ int ShowMainMenu()
     // Read line
     string option = Console.ReadLine();
     Console.WriteLine("----------------------------------------");
-    return Convert.ToInt32(option);
+    int defaultOption = 0;
+    if (int.TryParse(option, out defaultOption))
+    {
+        return Convert.ToInt32(option);
+    }
+    return defaultOption;
 }
 
 void ShowMenuRemove()
